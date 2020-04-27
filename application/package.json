@@ -1,0 +1,22 @@
+{
+  "name": "pharma_network",
+  "version": "1.0.0",
+  "description": "NodeJS Application Accessing The Pharma Chaincode on Fabric Network",
+  "main": "index.js",
+  "scripts": {
+    "test": "rm -rf identity && node index.js"
+  },
+  "author": "Shagun Khemka",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "fabric-client": "^1.4.8",
+    "fabric-network": "^1.4.8",
+    "js-yaml": "^3.13.1",
+    "pug": "^2.0.4"
+  },
+  "devDependencies": {
+    "eslint": "^6.8.0"
+  }
+}
