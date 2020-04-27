@@ -1,0 +1,20 @@
+{
+  "name": "pharmanet",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "engines": {
+    "node": ">=8",
+    "npm": ">=5"
+  },
+  "scripts": {
+    "start-dev": "fabric-chaincode-node start --peer.address peer0.manufacturer.pharma-network.com:11051 --chaincode-id-name pharmanet1:1"
+  },
+  "engineStrict": true,
+  "author": "Shagun Khemka",
+  "license": "ISC",
+  "dependencies": {
+    "fabric-contract-api": "^2.0.0",
+    "fabric-shim": "^2.0.0"
+  }
+}
