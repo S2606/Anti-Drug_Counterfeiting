@@ -1,0 +1,324 @@
+Organizations:
+
+    # SampleOrg defines an MSP using the sampleconfig.  It should never be used
+    # in production but may be used as a template for other definitions
+    - &OrdererOrg
+        # DefaultOrg defines the organization which is used in the sampleconfig
+        # of the fabric.git development environment
+        Name: OrdererOrg
+
+        # ID to load the MSP definition as
+        ID: OrdererMSP
+
+        # MSPDir is the filesystem path which contains the MSP configuration
+        MSPDir: crypto-config/ordererOrganizations/pharma-network.com/msp
+
+        # Policies defines the set of policies at this level of the config tree
+        # For organization policies, their canonical path is usually
+        #   /Channel/<Application|Orderer>/<OrgName>/<PolicyName>
+        Policies:
+            Readers:
+                Type: Signature
+                Rule: "OR('OrdererMSP.member')"
+            Writers:
+                Type: Signature
+                Rule: "OR('OrdererMSP.member')"
+            Admins:
+                Type: Signature
+                Rule: "OR('OrdererMSP.admin')"
+
+    - &consumer
+        # DefaultOrg defines the organization which is used in the sampleconfig
+        # of the fabric.git development environment
+        Name: consumerMSP
+
+        # ID to load the MSP definition as
+        ID: consumerMSP
+
+        MSPDir: crypto-config/peerOrganizations/consumer.pharma-network.com/msp
+
+        # Policies defines the set of policies at this level of the config tree
+        # For organization policies, their canonical path is usually
+        #   /Channel/<Application|Orderer>/<OrgName>/<PolicyName>
+        Policies:
+            Readers:
+                Type: Signature
+                Rule: "OR('consumerMSP.admin', 'consumerMSP.peer', 'consumerMSP.client')"
+            Writers:
+                Type: Signature
+                Rule: "OR('consumerMSP.admin', 'consumerMSP.peer', 'consumerMSP.client')"
+            Admins:
+                Type: Signature
+                Rule: "OR('consumerMSP.admin', 'consumerMSP.peer', 'consumerMSP.client')"
+
+        # leave this flag set to true.
+        AnchorPeers:
+            # AnchorPeers defines the location of peers which can be used
+            # for cross org gossip communication.  Note, this value is only
+            # encoded in the genesis block in the Application section context
+            - Host: peer0.consumer.pharma-network.com
+              Port: 7051
+
+    - &distributor
+        # DefaultOrg defines the organization which is used in the sampleconfig
+        # of the fabric.git development environment
+        Name: distributorMSP
+
+        # ID to load the MSP definition as
+        ID: distributorMSP
+
+        MSPDir: crypto-config/peerOrganizations/distributor.pharma-network.com/msp
+
+        # Policies defines the set of policies at this level of the config tree
+        # For organization policies, their canonical path is usually
+        #   /Channel/<Application|Orderer>/<OrgName>/<PolicyName>
+        Policies:
+            Readers:
+                Type: Signature
+                Rule: "OR('distributorMSP.admin', 'distributorMSP.peer', 'distributorMSP.client')"
+            Writers:
+                Type: Signature
+                Rule: "OR('distributorMSP.admin', 'distributorMSP.peer', 'distributorMSP.client')"
+            Admins:
+                Type: Signature
+                Rule: "OR('distributorMSP.admin', 'distributorMSP.peer', 'distributorMSP.client')"
+
+        # leave this flag set to true.
+        AnchorPeers:
+            # AnchorPeers defines the location of peers which can be used
+            # for cross org gossip communication.  Note, this value is only
+            # encoded in the genesis block in the Application section context
+            - Host: peer0.distributor.pharma-network.com
+              Port: 9051
+
+    - &manufacturer
+        # DefaultOrg defines the organization which is used in the sampleconfig
+        # of the fabric.git development environment
+        Name: manufacturerMSP
+
+        # ID to load the MSP definition as
+        ID: manufacturerMSP
+
+        MSPDir: crypto-config/peerOrganizations/manufacturer.pharma-network.com/msp
+
+        # Policies defines the set of policies at this level of the config tree
+        # For organization policies, their canonical path is usually
+        #   /Channel/<Application|Orderer>/<OrgName>/<PolicyName>
+        Policies:
+            Readers:
+                Type: Signature
+                Rule: "OR('manufacturerMSP.admin', 'manufacturerMSP.peer', 'manufacturerMSP.client')"
+            Writers:
+                Type: Signature
+                Rule: "OR('manufacturerMSP.admin', 'manufacturerMSP.peer', 'manufacturerMSP.client')"
+            Admins:
+                Type: Signature
+                Rule: "OR('manufacturerMSP.admin', 'manufacturerMSP.peer', 'manufacturerMSP.client')"
+            Endorsement:
+                Type: Signature
+                Rule: "OR('manufacturerMSP.admin', 'manufacturerMSP.peer')"
+
+        # leave this flag set to true.
+        AnchorPeers:
+            # AnchorPeers defines the location of peers which can be used
+            # for cross org gossip communication.  Note, this value is only
+            # encoded in the genesis block in the Application section context
+            - Host: peer0.manufacturer.pharma-network.com
+              Port: 11051
+
+    - &retailer
+        # DefaultOrg defines the organization which is used in the sampleconfig
+        # of the fabric.git development environment
+        Name: retailerMSP
+
+        # ID to load the MSP definition as
+        ID: retailerMSP
+
+        MSPDir: crypto-config/peerOrganizations/retailer.pharma-network.com/msp
+
+        # Policies defines the set of policies at this level of the config tree
+        # For organization policies, their canonical path is usually
+        #   /Channel/<Application|Orderer>/<OrgName>/<PolicyName>
+        Policies:
+            Readers:
+                Type: Signature
+                Rule: "OR('retailerMSP.admin', 'retailerMSP.peer', 'retailerMSP.client')"
+            Writers:
+                Type: Signature
+                Rule: "OR('retailerMSP.admin', 'retailerMSP.peer', 'retailerMSP.client')"
+            Admins:
+                Type: Signature
+                Rule: "OR('retailerMSP.admin', 'retailerMSP.peer', 'retailerMSP.client')"
+
+        # leave this flag set to true.
+        AnchorPeers:
+            # AnchorPeers defines the location of peers which can be used
+            # for cross org gossip communication.  Note, this value is only
+            # encoded in the genesis block in the Application section context
+            - Host: peer0.retailer.pharma-network.com
+              Port: 13051
+
+    - &transporter
+        # DefaultOrg defines the organization which is used in the sampleconfig
+        # of the fabric.git development environment
+        Name: transporterMSP
+
+        # ID to load the MSP definition as
+        ID: transporterMSP
+
+        MSPDir: crypto-config/peerOrganizations/transporter.pharma-network.com/msp
+
+        # Policies defines the set of policies at this level of the config tree
+        # For organization policies, their canonical path is usually
+        #   /Channel/<Application|Orderer>/<OrgName>/<PolicyName>
+        Policies:
+            Readers:
+                Type: Signature
+                Rule: "OR('transporterMSP.admin', 'transporterMSP.peer', 'transporterMSP.client')"
+            Writers:
+                Type: Signature
+                Rule: "OR('transporterMSP.admin', 'transporterMSP.peer', 'transporterMSP.client')"
+            Admins:
+                Type: Signature
+                Rule: "OR('transporterMSP.admin', 'transporterMSP.peer', 'transporterMSP.client')"
+
+        # leave this flag set to true.
+        AnchorPeers:
+            # AnchorPeers defines the location of peers which can be used
+            # for cross org gossip communication.  Note, this value is only
+            # encoded in the genesis block in the Application section context
+            - Host: peer0.transporter.pharma-network.com
+              Port: 15051
+
+Capabilities:
+    # Channel capabilities apply to both the orderers and the peers and must be
+    # supported by both.
+    # Set the value of the capability to true to require it.
+    Channel: &ChannelCapabilities
+        V1_4_2: true
+    # Orderer capabilities apply only to the orderers, and may be safely
+    # used with prior release peers.
+    # Set the value of the capability to true to require it.
+    Orderer: &OrdererCapabilities
+        V1_4_2: true
+    # Application capabilities apply only to the peer network, and may be safely
+    # used with prior release orderers.
+    # Set the value of the capability to true to require it.
+    Application: &ApplicationCapabilities
+        V1_4_2: true
+
+Application: &ApplicationDefaults
+
+    # Organizations is the list of orgs which are defined as participants on
+    # the application side of the network
+    Organizations:
+
+    # Policies defines the set of policies at this level of the config tree
+    # For Application policies, their canonical path is
+    #   /Channel/Application/<PolicyName>
+    Policies:
+        Readers:
+            Type: ImplicitMeta
+            Rule: "ANY Readers"
+        Writers:
+            Type: ImplicitMeta
+            Rule: "ANY Writers"
+        Admins:
+            Type: ImplicitMeta
+            Rule: "ANY Admins"
+
+    Capabilities:
+        <<: *ApplicationCapabilities
+
+
+Orderer: &OrdererDefaults
+
+    # Orderer Type: The orderer implementation to start
+    OrdererType: solo
+    # Batch Timeout: The amount of time to wait before creating a batch
+    BatchTimeout: 2s
+    # Batch Size: Controls the number of messages batched into a block
+    BatchSize:
+        # Max Message Count: The maximum number of messages to permit in a batch
+        MaxMessageCount: 10
+        # Absolute Max Bytes: The absolute maximum number of bytes allowed for
+        # the serialized messages in a batch.
+        AbsoluteMaxBytes: 99 MB
+        # Preferred Max Bytes: The preferred maximum number of bytes allowed for
+        # the serialized messages in a batch. A message larger than the preferred
+        # max bytes will result in a batch larger than preferred max bytes.
+        PreferredMaxBytes: 512 KB
+    Organizations:
+    Policies:
+        Readers:
+            Type: ImplicitMeta
+            Rule: "ANY Readers"
+        Writers:
+            Type: ImplicitMeta
+            Rule: "ANY Writers"
+        Admins:
+            Type: ImplicitMeta
+            Rule: "ANY Admins"
+        # BlockValidation specifies what signatures must be included in the block
+        # from the orderer for the peer to validate it.
+        BlockValidation:
+            Type: ImplicitMeta
+            Rule: "ANY Writers"
+
+Channel: &ChannelDefaults
+    # Policies defines the set of policies at this level of the config tree
+    # For Channel policies, their canonical path is
+    #   /Channel/<PolicyName>
+    Policies:
+        # Who may invoke the 'Deliver' API
+        Readers:
+            Type: ImplicitMeta
+            Rule: "ANY Readers"
+        # Who may invoke the 'Broadcast' API
+        Writers:
+            Type: ImplicitMeta
+            Rule: "ANY Writers"
+        # By default, who may modify elements at this config level
+        Admins:
+            Type: ImplicitMeta
+            Rule: "ANY Admins"
+    # Capabilities describes the channel level capabilities, see the
+    # dedicated Capabilities section elsewhere in this file for a full
+    # description
+    Capabilities:
+        <<: *ChannelCapabilities
+
+Profiles:
+
+    OrdererGenesis:
+        <<: *ChannelDefaults
+        Capabilities:
+            <<: *ChannelCapabilities
+        Orderer:
+            <<: *OrdererDefaults
+            Organizations:
+                - *OrdererOrg
+            Capabilities:
+               <<: *OrdererCapabilities
+        Consortiums:
+            PharmaConsortium:
+                Organizations:
+                - *consumer
+                - *distributor
+                - *manufacturer
+                - *retailer
+                - *transporter
+
+    pharmachannel:
+        Consortium: PharmaConsortium
+        <<: *ChannelDefaults
+        Application:
+            <<: *ApplicationDefaults
+            Organizations:
+                - *consumer
+                - *distributor
+                - *manufacturer
+                - *retailer
+                - *transporter
+            Capabilities:
+                <<: *ApplicationCapabilities
